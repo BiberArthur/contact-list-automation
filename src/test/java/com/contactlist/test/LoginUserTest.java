@@ -38,7 +38,7 @@ public class LoginUserTest extends UserApi {
 
 
     @Test
-    public void loginUserSuccessTest() {
+    public void loginUserSuccess() {
         LoginUser loginUser1 = new LoginUser(randomEmail, randomPassword);
 
         ValidatableResponse response = loginUser(loginUser1);
@@ -51,7 +51,7 @@ public class LoginUserTest extends UserApi {
     }
 
     @Test
-    public void loginUserWithoutPasswordTest() {
+    public void loginUserWithoutPasswordShowsError() {
         LoginUser loginUser1 = new LoginUser(randomEmail, "");
 
         ValidatableResponse response = loginUser(loginUser1);

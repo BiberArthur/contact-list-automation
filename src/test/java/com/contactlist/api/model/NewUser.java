@@ -45,6 +45,7 @@ public class NewUser {
         this.email = email;
         this.password = password;
     }
+
     public NewUser() {
 
     }

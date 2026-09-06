@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 
-public class CratingUserTest extends UserApi {
+public class CreatingUserTest extends UserApi {
     private Faker faker = new Faker();
     private String token;
 
@@ -23,7 +23,7 @@ public class CratingUserTest extends UserApi {
     }
 
     @Test
-    public void createDoubleUserTest() {
+    public void createUserDuplicateDataShowsError() {
 
         NewUser firstUser = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
 
@@ -43,7 +43,7 @@ public class CratingUserTest extends UserApi {
     }
 
     @Test
-    public void createUserWithoutFirstNameTest() {
+    public void createUserWithoutFirstNameShowsError() {
         NewUser userWitchFisName = new NewUser("", faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
 
         ValidatableResponse response = createUser(userWitchFisName);
@@ -55,7 +55,7 @@ public class CratingUserTest extends UserApi {
     }
 
     @Test
-    public void createUserWithoutLastNameTest() {
+    public void createUserWithoutLastNameShowsError() {
         NewUser userWitchLastName = new NewUser(faker.name().firstName(), "", faker.internet().emailAddress(), "q1w2e3r4t5");
 
         ValidatableResponse response = createUser(userWitchLastName);
@@ -66,7 +66,7 @@ public class CratingUserTest extends UserApi {
     }
 
     @Test
-    public void createUserWithoutEmailTest() {
+    public void createUserWithoutEmailShowsError() {
         NewUser userWitchEmail = new NewUser(faker.name().firstName(), faker.name().lastName(), "", "q1w2e3r4t5");
 
         ValidatableResponse response = createUser(userWitchEmail);
@@ -77,7 +77,7 @@ public class CratingUserTest extends UserApi {
     }
 
     @Test
-    public void createUserWithoutPasswordTest() {
+    public void createUserWithoutPasswordShowsError() {
         NewUser userWitchPassword = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "");
 
         ValidatableResponse response = createUser(userWitchPassword);
