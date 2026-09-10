@@ -3,8 +3,10 @@ package com.contactlist.api.specs;
 import com.contactlist.api.model.LoginUser;
 import com.contactlist.api.model.NewUser;
 import io.restassured.response.ValidatableResponse;
+import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class UserApi extends BaseApi {
 
@@ -27,7 +29,8 @@ public class UserApi extends BaseApi {
                 .header("Authorization", token)
                 .delete(DELETE_USER)
                 .then()
-                .log().all();
+                .log().all()
+                .statusCode(HttpStatus.SC_OK);
     }
 
     public ValidatableResponse loginUser(LoginUser loginUser) {

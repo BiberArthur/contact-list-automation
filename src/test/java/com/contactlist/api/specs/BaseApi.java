@@ -6,10 +6,8 @@ public class BaseApi {
     final String DELETE_USER = "/users/me";
     final String CREATE_USER = "/users";
     final String LOGIN_USER = "/users/login";
-    final String ADD_CONTACT = "/contacts";
-    final String GET_CONTACT_LIST = "/contacts";
-    final String GET_CONTACT = "contacts/";
-    final String UPDATE_CONTACT = "contacts/";
-    final String DELETE_CONTACT = "contacts/";
+    final String CONTACTS_ENDPOINT = "/contacts";
+    final String SINGLE_CONTACT_ENDPOINT = "contacts/";
+
 
 }

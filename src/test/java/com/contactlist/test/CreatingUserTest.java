@@ -18,7 +18,6 @@ public class CreatingUserTest extends UserApi {
 
     @Before
     public void setUp() {
-
         token = null;
     }
 
@@ -28,13 +27,11 @@ public class CreatingUserTest extends UserApi {
         NewUser firstUser = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
 
         ValidatableResponse response1 = createUser(firstUser);
-
         response1.assertThat()
                 .statusCode(HttpStatus.SC_CREATED)
                 .body("token", notNullValue());
 
         token = response1.extract().path("token");
-
 
         ValidatableResponse response2 = createUser(firstUser);
         response2.assertThat()
@@ -87,13 +84,10 @@ public class CreatingUserTest extends UserApi {
                 .body("message", containsString("password: Path `password` is required."));
     }
 
-
     @After
     public void tearDown() {
         if (token != null) {
             ValidatableResponse deleteResponse = deleteUser(token);
-            deleteResponse.assertThat()
-                    .statusCode(HttpStatus.SC_OK);
         }
     }
 

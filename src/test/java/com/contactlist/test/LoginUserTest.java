@@ -33,7 +33,9 @@ public class LoginUserTest extends UserApi {
         response.assertThat()
                 .statusCode(HttpStatus.SC_CREATED)
                 .body("token", notNullValue());
+
         token = response.extract().path("token");
+
     }
 
 
@@ -42,12 +44,12 @@ public class LoginUserTest extends UserApi {
         LoginUser loginUser1 = new LoginUser(randomEmail, randomPassword);
 
         ValidatableResponse response = loginUser(loginUser1);
-
         response.assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("token", notNullValue());
 
-        token = response.extract().path("token");
+
+      token = response.extract().path("token");
     }
 
     @Test
@@ -64,8 +66,6 @@ public class LoginUserTest extends UserApi {
     public void tearDown() {
         if (token != null) {
             ValidatableResponse deleteResponse = deleteUser(token);
-            deleteResponse.assertThat()
-                    .statusCode(HttpStatus.SC_OK);
         }
     }
 
