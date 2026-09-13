@@ -22,12 +22,10 @@ public class LoginUserTest extends UserApi {
 
     @Before
     public void setUp() {
-        String randomFirstName = faker.name().firstName();
-        String randomLastName = faker.name().lastName();
         randomEmail = faker.internet().emailAddress();
         randomPassword = faker.internet().password();
 
-        NewUser newUser = new NewUser(randomFirstName, randomLastName, randomEmail, randomPassword);
+        NewUser newUser = new NewUser(faker.name().firstName(), faker.name().lastName(), randomEmail, randomPassword);
 
         ValidatableResponse response = createUser(newUser);
         response.assertThat()
@@ -65,7 +63,7 @@ public class LoginUserTest extends UserApi {
     @After
     public void tearDown() {
         if (token != null) {
-            ValidatableResponse deleteResponse = deleteUser(token);
+            deleteUser(token);
         }
     }
 

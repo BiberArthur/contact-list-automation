@@ -56,7 +56,7 @@ public class GetContactListTest extends BaseApi {
     }
 
     @Test
-    public void getContactlistSucces() {
+    public void getContactListSuccess() {
 
         ValidatableResponse response = contactApi.getContactList(token);
         response.assertThat()
