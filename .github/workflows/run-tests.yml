@@ -1,0 +1,56 @@
+name: API Automation Tests
+
+# Триггер: запускать тесты при каждом push в ветку main
+on:
+  push:
+    branches:
+      - main
+  # Позволяет запускать тесты вручную через сайт GitHub
+  workflow_dispatch:
+
+jobs:
+  test_and_report:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Клонируем твой код на виртуальный компьютер GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем Java
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11' # Поставь '17' или '21', если у тебя в проекте другая версия
+          cache: 'maven'
+
+      # 3. Запускаем тесты и не падаем, если тесты "красные" (чтобы отчет всё равно собрался)
+      - name: Run API Tests
+        run: mvn clean test -Dmaven.test.failure.ignore=true
+
+      # 4. Загружаем историю прошлых тестов для графиков Allure
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        with:
+          ref: gh-pages
+          path: gh-pages-dir
+
+      # 5. Генерируем красивый отчет
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      # 6. Публикуем готовый отчет на GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
