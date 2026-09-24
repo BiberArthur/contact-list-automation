@@ -6,6 +6,7 @@ import com.contactlist.api.specs.BaseApi;
 import com.contactlist.api.specs.ContactApi;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.After;
@@ -53,6 +54,7 @@ public class UpdateContactTest extends BaseApi {
     }
 
     @Test
+    @DisplayName("Should successfully update contact details")
     public void updateContactCityReturnsSuccess() {
         AddContact updatedContact = AddContact.builder()
                 .firstName(contactFirstName)

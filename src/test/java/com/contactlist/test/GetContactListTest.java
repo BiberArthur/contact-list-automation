@@ -6,6 +6,7 @@ import com.contactlist.api.specs.BaseApi;
 import com.contactlist.api.specs.ContactApi;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -56,6 +57,7 @@ public class GetContactListTest extends BaseApi {
     }
 
     @Test
+    @DisplayName("Should successfully retrieve the contact list")
     public void getContactListSuccess() {
 
         ValidatableResponse response = contactApi.getContactList(token);

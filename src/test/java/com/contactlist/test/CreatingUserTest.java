@@ -3,6 +3,7 @@ package com.contactlist.test;
 import com.contactlist.api.specs.UserApi;
 import com.contactlist.api.model.NewUser;
 import com.github.javafaker.Faker;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.After;
@@ -22,6 +23,7 @@ public class CreatingUserTest extends UserApi {
     }
 
     @Test
+    @DisplayName("Should throw an error when creating a duplicate user")
     public void createUserDuplicateDataShowsError() {
 
         NewUser firstUser = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
@@ -40,6 +42,7 @@ public class CreatingUserTest extends UserApi {
     }
 
     @Test
+    @DisplayName("Should throw an error when creating a user without a first name")
     public void createUserWithoutFirstNameShowsError() {
         NewUser userWitchFisName = new NewUser("", faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
 
@@ -52,6 +55,7 @@ public class CreatingUserTest extends UserApi {
     }
 
     @Test
+    @DisplayName("Should throw an error when creating a user without a last name")
     public void createUserWithoutLastNameShowsError() {
         NewUser userWitchLastName = new NewUser(faker.name().firstName(), "", faker.internet().emailAddress(), "q1w2e3r4t5");
 
@@ -63,6 +67,7 @@ public class CreatingUserTest extends UserApi {
     }
 
     @Test
+    @DisplayName("Should throw an error when creating a user without a email")
     public void createUserWithoutEmailShowsError() {
         NewUser userWitchEmail = new NewUser(faker.name().firstName(), faker.name().lastName(), "", "q1w2e3r4t5");
 
@@ -74,6 +79,7 @@ public class CreatingUserTest extends UserApi {
     }
 
     @Test
+    @DisplayName("Should throw an error when creating a user without a password")
     public void createUserWithoutPasswordShowsError() {
         NewUser userWitchPassword = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "");
 

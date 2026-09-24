@@ -6,6 +6,7 @@ import com.contactlist.api.specs.BaseApi;
 import com.contactlist.api.specs.UserApi;
 import com.contactlist.api.specs.ContactApi;
 import com.github.javafaker.Faker;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.After;
@@ -36,6 +37,7 @@ public class AddContactTest extends BaseApi {
     }
 
     @Test
+    @DisplayName("Adding a new contact with valid data")
     public void addContactWithValidDataReturnsSuccess() {
         AddContact contact = AddContact.builder()
                 .firstName(faker.name().firstName())
@@ -51,6 +53,7 @@ public class AddContactTest extends BaseApi {
     }
 
     @Test
+    @DisplayName("Adding a contact without a first name fails with an error")
     public void addContactWithoutFirstNameShowsError() {
         AddContact contact = AddContact.builder()
                 .firstName("")

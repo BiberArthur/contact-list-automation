@@ -4,6 +4,7 @@ import com.contactlist.api.model.LoginUser;
 import com.contactlist.api.model.NewUser;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.After;
@@ -38,6 +39,7 @@ public class LoginUserTest extends UserApi {
 
 
     @Test
+    @DisplayName("Should log in the user")
     public void loginUserSuccess() {
         LoginUser loginUser1 = new LoginUser(randomEmail, randomPassword);
 
@@ -51,6 +53,7 @@ public class LoginUserTest extends UserApi {
     }
 
     @Test
+    @DisplayName("Should throw an error when logging in a user without a password")
     public void loginUserWithoutPasswordShowsError() {
         LoginUser loginUser1 = new LoginUser(randomEmail, "");
 
