@@ -95,12 +95,10 @@
                         </property>
                     </properties>
                     <systemPropertyVariables>
-                        <!-- Говорим складывать результаты в корень проекта, чтобы GitHub Actions их легко нашел -->
                         <allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                 </configuration>
                 <dependencies>
-                    <!-- Перехватчик шагов AspectJ Weaver -->
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>

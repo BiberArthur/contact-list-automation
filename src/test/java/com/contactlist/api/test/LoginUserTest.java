@@ -1,4 +1,4 @@
-package com.contactlist.test;
+package com.contactlist.api.test;
 
 import com.contactlist.api.model.LoginUser;
 import com.contactlist.api.model.NewUser;
