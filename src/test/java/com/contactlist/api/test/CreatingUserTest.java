@@ -26,7 +26,11 @@ public class CreatingUserTest extends UserApi {
     @DisplayName("Should throw an error when creating a duplicate user")
     public void createUserDuplicateDataShowsError() {
 
-        NewUser firstUser = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
+        NewUser firstUser = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password()).build();
 
         ValidatableResponse response1 = createUser(firstUser);
         response1.assertThat()
@@ -44,7 +48,10 @@ public class CreatingUserTest extends UserApi {
     @Test
     @DisplayName("Should throw an error when creating a user without a first name")
     public void createUserWithoutFirstNameShowsError() {
-        NewUser userWitchFisName = new NewUser("", faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4t5");
+       NewUser userWitchFisName = NewUser.builder()
+               .lastName(faker.name().lastName())
+               .email(faker.internet().emailAddress())
+               .password(faker.internet().password()).build();
 
         ValidatableResponse response = createUser(userWitchFisName);
 
@@ -57,7 +64,10 @@ public class CreatingUserTest extends UserApi {
     @Test
     @DisplayName("Should throw an error when creating a user without a last name")
     public void createUserWithoutLastNameShowsError() {
-        NewUser userWitchLastName = new NewUser(faker.name().firstName(), "", faker.internet().emailAddress(), "q1w2e3r4t5");
+        NewUser userWitchLastName = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password()).build();
 
         ValidatableResponse response = createUser(userWitchLastName);
 
@@ -69,7 +79,10 @@ public class CreatingUserTest extends UserApi {
     @Test
     @DisplayName("Should throw an error when creating a user without a email")
     public void createUserWithoutEmailShowsError() {
-        NewUser userWitchEmail = new NewUser(faker.name().firstName(), faker.name().lastName(), "", "q1w2e3r4t5");
+        NewUser userWitchEmail = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .password(faker.internet().password()).build();
 
         ValidatableResponse response = createUser(userWitchEmail);
 
@@ -81,7 +94,10 @@ public class CreatingUserTest extends UserApi {
     @Test
     @DisplayName("Should throw an error when creating a user without a password")
     public void createUserWithoutPasswordShowsError() {
-        NewUser userWitchPassword = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "");
+        NewUser userWitchPassword = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress()).build();
 
         ValidatableResponse response = createUser(userWitchPassword);
 

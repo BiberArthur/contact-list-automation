@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class LoginUserTest extends UserApi {
 
-    private Faker faker = new Faker();
+    private final Faker faker = new Faker();
     private String token;
     private String randomEmail;
     private String randomPassword;
@@ -26,7 +26,11 @@ public class LoginUserTest extends UserApi {
         randomEmail = faker.internet().emailAddress();
         randomPassword = faker.internet().password();
 
-        NewUser newUser = new NewUser(faker.name().firstName(), faker.name().lastName(), randomEmail, randomPassword);
+        NewUser newUser = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(randomEmail)
+                .password(randomPassword).build();
 
         ValidatableResponse response = createUser(newUser);
         response.assertThat()
@@ -55,7 +59,8 @@ public class LoginUserTest extends UserApi {
     @Test
     @DisplayName("Should throw an error when logging in a user without a password")
     public void loginUserWithoutPasswordShowsError() {
-        LoginUser loginUser1 = new LoginUser(randomEmail, "");
+        LoginUser loginUser1 = LoginUser.builder()
+                .email(randomEmail).build();
 
         ValidatableResponse response = loginUser(loginUser1);
 

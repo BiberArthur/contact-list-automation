@@ -40,7 +40,11 @@ public class LoginUiTest extends UserApi {
     @Test
     public void testInvalidPasswordShowsError() {
         randomEmail = faker.internet().emailAddress();
-        NewUser newUser = new NewUser(faker.name().firstName(),faker.name().lastName(),randomEmail,faker.internet().password());
+        NewUser newUser = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(randomEmail)
+                .password(faker.internet().password()).build();
         ValidatableResponse response = createUser(newUser);
         token = response.extract().path("token");
 

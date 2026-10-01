@@ -31,7 +31,11 @@ public class UpdateContactTest extends BaseApi {
         contactFirstName = faker.name().firstName();
         contactLastName = faker.name().lastName();
 
-        NewUser newUser = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "q1w2e3r4");
+        NewUser newUser = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password()).build();
 
         ValidatableResponse response = userApi.createUser(newUser);
         response.assertThat()

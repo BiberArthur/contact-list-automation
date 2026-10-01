@@ -26,7 +26,11 @@ public class GetContactListTest extends BaseApi {
     @Before
     public void setUp() {
 
-        NewUser newUser = new NewUser(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), faker.internet().password());
+        NewUser newUser = NewUser.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password()).build();
 
         ValidatableResponse userResponse = userApi.createUser(newUser);
         userResponse.assertThat()
