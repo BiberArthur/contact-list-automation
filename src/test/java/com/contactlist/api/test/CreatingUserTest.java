@@ -82,6 +82,7 @@ public class CreatingUserTest extends UserApi {
         NewUser userWitchEmail = NewUser.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
+                .email("")
                 .password(faker.internet().password()).build();
 
         ValidatableResponse response = createUser(userWitchEmail);

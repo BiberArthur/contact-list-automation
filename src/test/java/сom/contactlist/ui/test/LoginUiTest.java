@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import сom.contactlist.ui.pages.LoginPage;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 public class LoginUiTest extends UserApi {
@@ -22,7 +23,16 @@ public class LoginUiTest extends UserApi {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+
+        if (System.getenv("CI") != null) {
+            options.addArguments("--headless=new");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+        }
+        driver = new ChromeDriver(options);
         driver.get("https://thinking-tester-contact-list.herokuapp.com/");
         loginPage = new LoginPage(driver);
     }
