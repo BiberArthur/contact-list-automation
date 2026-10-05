@@ -10,27 +10,29 @@ import java.time.Duration;
 public class LoginPage {
     private WebDriver driver;
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
     private final By emailField = By.id("email");
     private final By passwordField = By.id("password");
     private final By submitButton = By.id("submit");
-    private  final By errorMessage = By.id("error");
+    private final By errorMessage = By.id("error");
     private final By signUpButton = By.id("signup");
 
-    public void login (String email, String password){
+
+    public void login(String email, String password) {
         driver.findElement(emailField).sendKeys(email);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(submitButton).click();
     }
-    public void clickSignUpButton(){
+
+    public void clickSignUpButton() {
         driver.findElement(signUpButton).click();
     }
 
     public String getErrorMessageText() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
 
         return driver.findElement(errorMessage).getText();
@@ -38,3 +40,9 @@ public class LoginPage {
 
 
 }
+
+
+
+
+
+
