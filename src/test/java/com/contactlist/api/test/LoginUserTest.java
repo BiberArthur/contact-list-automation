@@ -4,12 +4,12 @@ import com.contactlist.api.model.LoginUser;
 import com.contactlist.api.model.NewUser;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
-import io.qameta.allure.junit4.DisplayName;
+import org.junit.jupiter.api.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -21,7 +21,7 @@ public class LoginUserTest extends UserApi {
     private String randomPassword;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         randomEmail = faker.internet().emailAddress();
         randomPassword = faker.internet().password();
@@ -68,7 +68,7 @@ public class LoginUserTest extends UserApi {
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (token != null) {
             deleteUser(token);

@@ -3,12 +3,12 @@ package com.contactlist.api.test;
 import com.contactlist.api.specs.UserApi;
 import com.contactlist.api.model.NewUser;
 import com.github.javafaker.Faker;
-import io.qameta.allure.junit4.DisplayName;
+import org.junit.jupiter.api.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 
@@ -17,7 +17,7 @@ public class CreatingUserTest extends UserApi {
     private String token;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         token = null;
     }
@@ -106,8 +106,9 @@ public class CreatingUserTest extends UserApi {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", containsString("password: Path `password` is required."));
     }
+    @Test
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (token != null) {
             ValidatableResponse deleteResponse = deleteUser(token);

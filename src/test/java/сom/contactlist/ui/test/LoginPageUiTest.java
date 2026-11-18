@@ -4,10 +4,10 @@ import com.contactlist.api.model.NewUser;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import сom.contactlist.ui.pages.ContactListPage;
@@ -27,7 +27,7 @@ public class LoginPageUiTest extends UserApi {
     String userEmail;
     String userPassword;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
 
@@ -59,7 +59,7 @@ public class LoginPageUiTest extends UserApi {
         token = response.extract().path("token");
 
         loginPage.login(userEmail, userPassword);
-        Assert.assertTrue("Button is not displayed", contactListPage.logoutButtonIsDisplayed());
+        Assertions.assertTrue(contactListPage.logoutButtonIsDisplayed(), "Button is not displayed");
 
     }
 
@@ -70,7 +70,7 @@ public class LoginPageUiTest extends UserApi {
         String actualError = loginPage.getErrorMessageText();
         String expectedError = "Incorrect username or password";
 
-        Assert.assertEquals("The error message text is incorrect!", expectedError, actualError);
+        Assertions.assertEquals(expectedError, actualError, "The error message text is incorrect!");
 
     }
 
@@ -90,17 +90,17 @@ public class LoginPageUiTest extends UserApi {
         String actualError = loginPage.getErrorMessageText();
         String expectedError = "Incorrect username or password";
 
-        Assert.assertEquals("The error message text is incorrect!", expectedError, actualError);
+        Assertions.assertEquals(expectedError, actualError, "The error message text is incorrect!");
 
     }
     @Test
     public void clickSignUpButtonOpensAddUserPage(){
         loginPage.clickSignUpButton();
-        Assert.assertTrue("Sing up button opens add user page", createUserPages.addUserFormIsDisplayed());
+        Assertions.assertTrue(createUserPages.addUserFormIsDisplayed(), "Sing up button opens add user page");
 
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (driver != null) {
             driver.quit();

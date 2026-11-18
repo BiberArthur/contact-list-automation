@@ -6,12 +6,12 @@ import com.contactlist.api.specs.BaseApi;
 import com.contactlist.api.specs.ContactApi;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
-import io.qameta.allure.junit4.DisplayName;
+import org.junit.jupiter.api.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -26,7 +26,7 @@ public class UpdateContactTest extends BaseApi {
     private String contactLastName;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         contactFirstName = faker.name().firstName();
         contactLastName = faker.name().lastName();
@@ -71,7 +71,7 @@ public class UpdateContactTest extends BaseApi {
                 .body("city", equalTo("Berlin"));
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (token != null) {
             userApi.deleteUser(token);

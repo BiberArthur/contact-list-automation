@@ -6,14 +6,14 @@ import com.contactlist.api.specs.BaseApi;
 import com.contactlist.api.specs.ContactApi;
 import com.contactlist.api.specs.UserApi;
 import com.github.javafaker.Faker;
-import io.qameta.allure.junit4.DisplayName;
+import org.junit.jupiter.api.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class GetContactListTest extends BaseApi {
@@ -23,7 +23,7 @@ public class GetContactListTest extends BaseApi {
     private final UserApi userApi = new UserApi();
     private final ContactApi contactApi = new ContactApi();
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         NewUser newUser = NewUser.builder()
@@ -71,7 +71,7 @@ public class GetContactListTest extends BaseApi {
                 .body("city", hasItems("Frankfurt am Main", "Berlin"));
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (token != null) {
             ValidatableResponse deleteResponse = userApi.deleteUser(token);
