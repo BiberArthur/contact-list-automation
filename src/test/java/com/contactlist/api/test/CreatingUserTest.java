@@ -9,6 +9,8 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.CoreMatchers.*;
 
@@ -82,7 +84,7 @@ public class CreatingUserTest extends UserApi {
         NewUser userWitchEmail = NewUser.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
-                .email("")
+                //.email("")
                 .password(faker.internet().password()).build();
 
         ValidatableResponse response = createUser(userWitchEmail);
@@ -106,7 +108,53 @@ public class CreatingUserTest extends UserApi {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", containsString("password: Path `password` is required."));
     }
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "S",
+            "St",
+            "StenStenSt",
+            "StenStenStenStenSte",
+            "StenStenStenStenSten",
+            " Sten ",
+            "St en",
+            "Иван-123!@#"
+    } )
+    @DisplayName("Should create user when first name is valid")
+    public void createUserWithValidFirstName(String validFirstName) {
+        NewUser user = NewUser.builder()
+                .firstName(validFirstName)
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password()).build();
+
+        ValidatableResponse response = createUser(user);
+            response.assertThat()
+                    .statusCode(HttpStatus.SC_CREATED)
+                    .body("token",notNullValue());
+
+            token = response.extract().path("token");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "StenStenStenStenStenS",
+            "StenStenStenStenStenSt",
+            " ",
+    })
+    @DisplayName("Should throw an error if first name is not valid")
+    public void createUserWithTooNotValidFirstNameTest(String notValidFirstName){
+        NewUser user = NewUser.builder()
+                .firstName(notValidFirstName)
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password()).build();
+
+        ValidatableResponse response = createUser(user);
+        response.assertThat()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", containsString("firstName"));
+    }
+
 
     @AfterEach
     public void tearDown() {
